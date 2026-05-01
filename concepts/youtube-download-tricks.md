@@ -17,7 +17,8 @@ When data center IPs (OCI, AWS) are blocked, use GitHub's infrastructure:
 - **Mechanism**: Trigger via `gh workflow run` to download to GH runners and upload directly to Baidu Netdisk.
 
 ## 2. Cookie Management
-- **Format Conversion**: Use scripts to convert Playwright `storage_state.json` to Netscape format for `yt-dlp`.
+- **Format Conversion**: Use scripts to convert Playwright `storage_state.json` to Netscape format for `yt-dlp`. 
+  - *Note*: Ensure the domain matching flag is correctly handled to avoid `AssertionError`.
 - **Account Rotation**: Data centers often trigger bans; maintain fresh session cookies from a residential-IP authenticated browser.
 
 ## 3. Toolchain Requirements

@@ -19,6 +19,7 @@ A high-performance middleware that bridges DeepSeek Web capabilities to OpenAI-c
   - Admin Password: `ab87036181`.
   - Model Aliases: Fixed mappings for `gpt-4o` and `gpt-5.5` to `deepseek-v4-flash`.
 - **Infrastructure**: Includes pure Go implementation of **DeepSeekHashV1 PoW** solver for high-performance session handling.
+- **Proxy Configuration**: Nginx nodes must use `proxy_buffering off;` and `proxy_read_timeout 3600s;` to support stable SSE streaming.
 
 ## Integration
 Used as a primary backend for [[hermes-notebooklm-integration]] workflows.
