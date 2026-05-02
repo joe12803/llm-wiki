@@ -1,7 +1,7 @@
 ---
 title: YouTube Download Tricks
 created: 2026-04-29
-updated: 2026-04-29
+updated: 2026-05-02
 type: concept
 tags: [yt-dlp, github-actions, bypass, automation]
 ---
@@ -17,8 +17,7 @@ When data center IPs (OCI, AWS) are blocked, use GitHub's infrastructure:
 - **Mechanism**: Trigger via `gh workflow run` to download to GH runners and upload directly to Baidu Netdisk.
 
 ## 2. Cookie Management
-- **Format Conversion**: Use scripts to convert Playwright `storage_state.json` to Netscape format for `yt-dlp`. 
-  - *Note*: Ensure the domain matching flag is correctly handled to avoid `AssertionError`.
+- **Format Conversion**: Automated Python script converts Playwright `storage_state.json` (used by [[hermes-notebooklm-integration]]) to Netscape format required by `yt-dlp`.
 - **Account Rotation**: Data centers often trigger bans; maintain fresh session cookies from a residential-IP authenticated browser.
 
 ## 3. Toolchain Requirements
