@@ -1,14 +1,27 @@
 ---
 title: Industrial Mining Workflow
-created: 2026-05-01
-updated: 2026-05-01
+created: 2026-04-29
+updated: 2026-05-02
 type: concept
-tags: [workflow, automation, research, mining]
+tags: [mining, workflow, notebooklm, automation, research]
 ---
 
 # Industrial Mining Workflow
 
-A standardized 6-stage pipeline for autonomous technical research and knowledge extraction.
+A 6-stage industrial-grade knowledge extraction pipeline for deep codebase and document analysis.
+
+## Workflow Stages (v2.1)
+1. **Reconnaissance**: Initial exploration using `pygount` and `graphify` to understand project topology.
+2. **Ingestion**: Uploading codebase/documentation to [[hermes-notebooklm-integration]].
+3. **Mining**: Deep technical analysis using specialized AI agents and NotebookLM "Data Tables".
+4. **Synthesis**: Generating multi-modal briefings (Audio Podcast, Mind Maps, Technical Slides).
+5. **Storage**: Syncing all assets to Feishu (Lark) Wiki and GitHub repositories.
+6. **Distribution**: Sharing mobile-friendly audio briefings for convenient consumption.
+
+## Key Updates (2026-05-02)
+- **Multi-modal Assets**: Audio briefings (MP3) and Video overviews are now treated as primary artifacts.
+- **Tooling**: Integrated `lark-cli` for automated uploads to Feishu Drive.
+- **Verification**: Added `notebooklm list` heartbeat to ensure tool stability during long mining runs.
 
 ## Pipeline Stages
 

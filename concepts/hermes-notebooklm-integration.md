@@ -16,9 +16,11 @@ This concept describes the workflow for augmenting AI agents (like Hermes) with 
 - **Reduced Costs**: Offloads document analysis to Google's specialized infrastructure.
 
 ## Stability & Persistence
-- **Session Management**: Switched to the **win4r** fork of `notebooklm-py` to resolve 15-minute cookie expiration issues.
-- **Heartbeat System**: Implemented a 20-minute cron heartbeat task to keep the session alive.
-- **Storage**: Cookies and session state maintained at `/home/joe1280/.notebooklm/profiles/default/storage_state.json`.
+- **Authentication Sync**: Implemented a **Hard Link** strategy between `Claude-API` and `NotebookLM` for `storage_state.json`. This allows sharing authentication cookies across tools.
+- **Heartbeat System**: Implemented a 20-minute cron heartbeat task (`notebooklm list`) to prevent session expiration for both tools.
+- **Industrial Mining Pipeline**: Upgraded to **v2.1**, formally integrating NotebookLM Studio features (Data Tables, Mind Maps, Audio/Video Overviews) into the "Mining" and "Storage" stages.
+- **Mobile Knowledge Consumption**: Treat audio/video briefings as core "industrial" assets for mobile-friendly consumption.
+- **Multi-modal Support**: Supports generating technical briefings in Chinese (`zh_Hans`) using the `--language` flag.
 
 ## Multi-modal & Language Support
 - **Multi-lingual Audio**: Supports 81 languages. Use `--language zh_Hans` for simplified Chinese briefings.
