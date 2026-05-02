@@ -58,3 +58,50 @@
 ---
 *Status: All systems operational. 2026-05-01 report finalized.*
 
+# 工业化采矿报告：Gemini 多账号隔离部署与 API 基础设施升级
+
+**日期**: 2026-05-02
+**状态**: ✅ 已完成
+
+## 1. 勘探 (Exploration): 核心逻辑
+为了应对 Google 账号的风控并提高并发能力，本项目采用了 **Backend-Bridge 物理隔离架构**。每个账号独占一个 `GeminiWeb2API` 后端（负责 Cookie 会话管理）和一个 `Gemini-Tool-Bridge`（负责 OpenAI 协议转换）。
+
+## 2. 钻探 (Drilling): 技术规格
+- **服务器**: 152.70.68.134 / 129.80.98.80 (Nginx 代理层)
+- **容器对**: 5 组 (acc1 - acc5)
+- **端口映射**: 18789, 18791, 18793, 18795, 18797
+- **统一 Token**: `sk-123456`
+- **基础设施升级**:
+  - `ds2api` 更新至 **v4.3.0**，支持 DeepSeek-V4。
+  - `NotebookLM` 切换至 `win4r` 分支，配合 20 分钟一次的 `heartbeat` 保持 Session 活性。
+
+## 3. 图谱 (Mapping): 网络拓扑
+```text
+[远程 CPA/OneAPI] 
+      |
+      v
+[Nginx: gemini-api.994938.xyz] 
+      |-- /acc1/ -> 127.0.0.1:18789
+      |-- /acc2/ -> 127.0.0.1:18791
+      |-- ...
+      v
+[Docker: Bridge Container]
+      |
+      v
+[Docker: Backend Container (Cookie 会话)]
+```
+
+## 4. 开采 (Mining): 关键交付
+- **管理脚本**: `/opt/gemini-agent-docker/manage-gemini.sh` 支持一键 `add` 账号。
+- **自定义模型支持**: 实测支持 `gemini-3.1-flash` 和 `gemini-3.1-pro-high` 等伪装模型名。
+- **健康检查**: 5 个节点均通过逻辑验证（1+1=2），知识库已更新至 2025 年。
+
+## 5. 入库 (Storage)
+- 本报告已追加至 `/root/hermes-shared/wiki/log.md`。
+- 相关配置备份至 GitHub: `joe12803/llm-wiki`。
+
+## 6. 同步 (Sync)
+- 已通过 `lark-cli` 同步至飞书云文档。
+
+## [2026-05-02] auto | Daily synchronization triggered
+- Automated review of the day's technical milestones.
