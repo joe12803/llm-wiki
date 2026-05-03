@@ -108,3 +108,20 @@
 
 ## [2026-05-03] auto | Daily synchronization triggered
 - Automated review of the day's technical milestones.
+
+
+## 📅 2026-05-03: 基础设施闭环与工具集成 (Infrastructure Integration)
+
+### 🤖 API 基础设施升级 (API Bridge & OpenClaw)
+- **Claude-API-Bridge 增强**: 为 Claude-API-Bridge 增加了 /v1/models 接口，解决了与 OpenClaw 等编排器的兼容性探测问题。
+- **OpenClaw-Zero-Token 集成**: 成功在 Debian 13 (ARM64) 环境下将本地 Claude-API 桥接到 OpenClaw。通过 "Auth Spoofing" 技术将 OpenClaw 的 Anthropic Provider 重定向至本地桥接器 (http://10.0.118.235:8001/v1)，实现了 Web 版 Claude 的工具调用 (Tool-Calling) 能力。
+- **Gemini-API Bridge (v2) 修复**: 解决了 Gemini Bridge 在内部调用 geminiweb2api 时缺失 Authorization Header 的 Bug，并优化了账号自动清理逻辑。
+- **Docker & 网络优化**: 将 OpenClaw 容器绑定地址从 loopback 扩展至 lan，确保了跨服务通信的稳定性。
+
+### 🛠️ 远程协作与管理 (Claude-Client & Feishu)
+- **Claude-Client 部署**: 在 jd184.994938.xyz 服务器成功部署 claude-client，将其作为 /root/hermes-shared/wiki 知识库的远程管理门户。
+- **飞书集成**: 完成了 Feishu Bot 的对接 (App ID: cli_a931...)，支持通过飞书直接操作远程 Claude Code CLI，打通了 “移动端对话 -> 远程知识库修改” 的链路。
+- **端口管理**: 解决了 Node.js 进程僵死导致的 EADDRINUSE (3000) 错误。
+
+---
+*Status: Infrastructure loop CLOSED. Multi-agent collaboration active.*
