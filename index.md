@@ -2,6 +2,7 @@
 Last updated: 2026-04-28 | Total pages: 5
 
 ## Entities
+- [[gitnexus]]: AI-native code graph indexer and MCP server.
 - [[ds2api]]: DeepSeek to OpenAI API bridge middleware.
 - [[claude-api-bridge]]: Customized Claude Web API to OpenAI bridge with auto-healing.
 - [[server-infra]]: Multi-node server architecture details (129.80.98.80 / 152.70.68.134).

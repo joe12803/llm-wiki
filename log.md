@@ -123,5 +123,11 @@
 - **飞书集成**: 完成了 Feishu Bot 的对接 (App ID: cli_a931...)，支持通过飞书直接操作远程 Claude Code CLI，打通了 “移动端对话 -> 远程知识库修改” 的链路。
 - **端口管理**: 解决了 Node.js 进程僵死导致的 EADDRINUSE (3000) 错误。
 
+## [2026-05-04] add | GitNexus knowledge ingestion & Deployment
+- Extracted core content from YouTube video Zy6tS-7xg9M using NotebookLM.
+- Added [[gitnexus]] to Wiki Entities with local deployment details.
+- Successfully deployed GitNexus Web and Server on 152.70.68.134 via Docker Compose.
+- Automated sync of updated Wiki to Google Drive.
+
 ---
 *Status: Infrastructure loop CLOSED. Multi-agent collaboration active.*
