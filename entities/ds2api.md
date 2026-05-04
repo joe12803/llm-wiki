@@ -1,17 +1,19 @@
 ---
 title: ds2api
 created: 2026-04-28
-updated: 2026-04-29
+updated: 2026-05-04
 type: entity
-tags: [middleware, deepseek, api-bridge, deployed]
+tags: [middleware, deepseek, api-bridge, deployed, gemini-thinking]
 ---
 
 # ds2api
 
 A high-performance middleware that bridges DeepSeek Web capabilities to OpenAI-compatible APIs.
 
-## Key Updates (2026-04-29)
-- **Version Upgrade**: Updated to **v4.1.2**.
+## Key Updates (2026-05-04)
+- **Version Upgrade**: Updated to **v4.4.0**.
+- **Gemini Thinking**: Added support for Gemini reasoning chains (Thinking model).
+- **Streaming Optimization**: Improved SSE stream processing for better stability with downstream orchestrators.
 - **Deployment Architecture**: 
   - Application Server: `129.154.39.47` (Docker Compose, Port 6011).
   - Proxy Server: `129.80.98.80` (Nginx).

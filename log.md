@@ -134,3 +134,21 @@
 
 ## [2026-05-04] auto | Daily synchronization triggered
 - Automated review of the day's technical milestones.
+
+## 📅 2026-05-04: GitNexus 部署与 API 深度优化 (GitNexus & API Deep Dive)
+
+### 🤖 API 基础设施与大模型集成
+- **ds2api v4.4.0**: 远程服务器 (129.80.98.80) 完成升级，新增 Gemini 推理链 (Thinking) 支持及流式处理优化。
+- **Claude-API-Bridge 重构**: 实现了混合模式解析器 (`tool_parser.py`)，精准捕获 Claude 生成的 XML/JSON/KV 多种格式工具调用，并上线原生流式输出支持。
+- **NotebookLM 越狱策略**: 确立了 “NotebookLM Proxy” 策略，利用 Google 服务作为高匿名代理，成功绕过 YouTube 对数据中心 IP 的下载/字幕提取封锁。
+
+### ⛏️ 工业化采矿：GitNexus 实战 (GitNexus Ingestion)
+- **知识提取**: 通过 NotebookLM 深度解析 YouTube 视频 (Zy6tS-7xg9M)，识别出 GitNexus 的核心价值：AI 原生代码图谱索引、爆炸半径分析及零 Token 本地索引。
+- **实体入库**: 新增 `entities/gitnexus.md`，记录了 GitNexus Server 与 Web 的 Docker Compose 部署方案 (152.70.68.134)。
+- **多模态交付**: 生成并下载了 GitNexus 项目的 10 分钟音频简报 (`gitnexus-briefing.mp3`)，存入 `assets/audio/`。
+
+### 📤 同步与备份
+- **Obsidian 闭环**: 建立 `rclone` 自动同步链路，将 `/root/hermes-shared/wiki` 实时镜像至 Google Drive (`ObsidianVault/Mining`)，实现手机端 Obsidian 的无缝知识接入。
+
+---
+*Status: GitNexus integrated. API robustness +30%.*

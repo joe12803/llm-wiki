@@ -1,9 +1,9 @@
 ---
 title: Hermes-NotebookLM Integration
 created: 2026-04-28
-updated: 2026-04-29
+updated: 2026-05-04
 type: concept
-tags: [ai-agent, notebooklm, pkm, session-stability]
+tags: [ai-agent, notebooklm, pkm, session-stability, proxy-bypass]
 ---
 
 # Hermes-NotebookLM Integration
@@ -14,6 +14,7 @@ This concept describes the workflow for augmenting AI agents (like Hermes) with 
 - **Augmented Knowledge**: Provides agents with a massive, RAG-optimized external memory.
 - **Multi-modal Synthesis**: Enables agents to trigger audio/video summaries of research materials.
 - **Reduced Costs**: Offloads document analysis to Google's specialized infrastructure.
+- **Bypass Censorship/Blocks**: The **NotebookLM Proxy** strategy uses Google's infrastructure to ingest content (e.g., YouTube transcripts) that is otherwise blocked for data center IPs.
 
 ## Stability & Persistence
 - **Authentication Sync**: Implemented a **Hard Link** strategy between `Claude-API` and `NotebookLM` for `storage_state.json`. This allows sharing authentication cookies across tools.
