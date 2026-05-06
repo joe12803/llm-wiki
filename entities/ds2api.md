@@ -29,3 +29,8 @@
 ## Maintenance (2026-05-05)
 - **Version Upgrade**: Updated to **v4.4.2** on server `129.80.98.80`.
 - **Cleanup**: Deprecated `compat` key removed from `config.json`.
+
+### [2026-05-06] Update
+- Upgraded to v4.4.3 on server `129.80.98.80`.
+- Switched to pure Go PoW solver for better performance.
+- Integrated account queue logic.
