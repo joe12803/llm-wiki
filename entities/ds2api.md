@@ -30,7 +30,9 @@
 - **Version Upgrade**: Updated to **v4.4.2** on server `129.80.98.80`.
 - **Cleanup**: Deprecated `compat` key removed from `config.json`.
 
-### [2026-05-06] Update
-- Upgraded to v4.4.3 on server `129.80.98.80`.
-- Switched to pure Go PoW solver for better performance.
-- Integrated account queue logic.
+### [2026-05-07] Update - geminiweb2api Integration
+- **New Component**: Deployed `geminiweb2api` (reverse-proxy for Gemini Web to OpenAI API).
+- **Architecture Patch**: Modified `Dockerfile` for **ARM64 (aarch64)** compatibility: `RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build`.
+- **Model Access**: Configured complex cookie strings in `config.json` to unlock `gemini-3-pro` and `gemini-3-flash-thinking`.
+- **Server IP**: Corrected deployment target to `152.70.68.134`.
+- **Integration Path**: Exploring bridging `openclaw-zero-token` tool-calling logic with `geminiweb2api` to add function calling support.

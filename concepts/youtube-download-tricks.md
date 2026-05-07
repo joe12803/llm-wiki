@@ -27,6 +27,7 @@
     27|## 4. The "NotebookLM" Bypass
     28|If only text/summary is needed, add the URL directly to [[hermes-notebooklm-integration]]. Google's scrapers are rarely blocked and provide full transcripts instantly.
     29|
-## 5. GitHub Actions IP Fencing (2026-05-05)
-- **Finding**: YouTube effectively blocks Data Center IPs (like GitHub Actions runners) regardless of cookie usage if the account's usual geographic location doesn't match the runner's region. 
-- **Outcome**: `yt-dlp` consistently triggers "Sign in to confirm you’re not a bot" on GitHub runners even with valid Netscape cookies.
+## 5. GitHub Actions IP Fencing & Bypass (2026-05-07)
+- **Status**: YouTube has tightened blocks on Data Center IPs (OCI, GitHub Runners). Even with valid cookies, `n-challenge` often fails or triggers bot verification.
+- **Solution**: Use the `joe12803/baidu-downloader` repo. Trigger `baidu_transfer.yml` via `gh workflow run`. This leverages GitHub's higher-reputation IPs to fetch and transfer to Baidu Netdisk.
+- **Cookie Conversion**: Refined Python script to extract from `storage_state.json` (Playwright) to Netscape format for `yt-dlp` local attempts, though local IP reputation remains the primary bottleneck.
