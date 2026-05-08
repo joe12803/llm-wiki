@@ -24,10 +24,14 @@
     24|- **JS Runtime**: `yt-dlp` requires Deno or Node.js to solve the `n-token` challenge locally.
     25|- **BaiduPCS-Go**: Used for final asset management on the target server.
     26|
-    27|## 4. The "NotebookLM" Bypass
-    28|If only text/summary is needed, add the URL directly to [[hermes-notebooklm-integration]]. Google's scrapers are rarely blocked and provide full transcripts instantly.
-    29|
+## 4. The "NotebookLM" Bypass
+If only text/summary is needed, add the URL directly to [[hermes-notebooklm-integration]]. Google's scrapers are rarely blocked and provide full transcripts instantly.
+
 ## 5. GitHub Actions IP Fencing & Bypass (2026-05-07)
 - **Status**: YouTube has tightened blocks on Data Center IPs (OCI, GitHub Runners). Even with valid cookies, `n-challenge` often fails or triggers bot verification.
 - **Solution**: Use the `joe12803/baidu-downloader` repo. Trigger `baidu_transfer.yml` via `gh workflow run`. This leverages GitHub's higher-reputation IPs to fetch and transfer to Baidu Netdisk.
 - **Cookie Conversion**: Refined Python script to extract from `storage_state.json` (Playwright) to Netscape format for `yt-dlp` local attempts, though local IP reputation remains the primary bottleneck.
+
+## 6. Resource Alternatives (2026-05-08)
+- **Zeabur**: Identified as a viable Docker hosting alternative ($5 free credit) when HF/Action IPs are blocked.
+- **HF Keep-Alive**: Confirmed that `curl` triggers via external cron services (UptimeRobot) are essential for maintaining download services on "Sleep-prone" free tiers.

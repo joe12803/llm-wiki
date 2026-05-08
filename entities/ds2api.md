@@ -36,3 +36,8 @@
 - **Model Access**: Configured complex cookie strings in `config.json` to unlock `gemini-3-pro` and `gemini-3-flash-thinking`.
 - **Server IP**: Corrected deployment target to `152.70.68.134`.
 - **Integration Path**: Exploring bridging `openclaw-zero-token` tool-calling logic with `geminiweb2api` to add function calling support.
+
+### [2026-05-08] Version Update & Optimization
+- **Version**: Updated to **v4.4.5**.
+- **ARM64 Support**: Streamlined build process for heterogeneous clusters (OCI ARM + jd184).
+- **Load Balancing**: Enhanced account rotation logic in the bridge layer to prevent rate limiting across multiple Gemini accounts.
