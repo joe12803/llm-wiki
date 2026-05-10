@@ -17,8 +17,8 @@ This concept describes the workflow for augmenting AI agents (like Hermes) with 
 - **Bypass Censorship/Blocks**: The **NotebookLM Proxy** strategy uses Google's infrastructure to ingest content (e.g., YouTube transcripts) that is otherwise blocked for data center IPs.
 
 ## Stability & Persistence (2026-05-07 Update)
-- **Auto-Refresh Trigger**: Discovered `NOTEBOOKLM_REFRESH_CMD` env var in `win4r/notebooklm-py`. Setting it to `notebooklm login --browser-cookies chrome` enables automatic cookie renewal upon 401/403 errors.
-- **Authentication Sync**: Implemented a **Hard Link** strategy between `Claude-API` and `NotebookLM` for `storage_state.json`. This allows sharing authentication cookies across tools.
+- **Distributed Credentials Sync (2026-05-10)**: Standardized `notebooklm_keepalive_sync.py` to synchronize `storage_state.json` between local environments and the `hermes-claw` repository. This ensures that even ephemeral agents in GitHub Actions can inherit active Google sessions.
+- **Heartbeat Stability**: Confirmed the 20-minute heartbeat (`notebooklm list`) effectively prevents session logout across multiple days of inactivity.
 - **Heartbeat System**: Implemented a 20-minute cron heartbeat task (`notebooklm list`) to prevent session expiration for both tools.
 - **Industrial Mining Pipeline**: Upgraded to **v2.1**, formally integrating NotebookLM Studio features (Data Tables, Mind Maps, Audio/Video Overviews) into the "Mining" and "Storage" stages.
 - **Mobile Knowledge Consumption**: Treat audio/video briefings as core "industrial" assets for mobile-friendly consumption.

@@ -228,4 +228,20 @@
 - Automated review of the day's technical milestones.
 
 ## [2026-05-10] auto | Daily synchronization triggered
-- Automated review of the day's technical milestones.
+- **ds2api**: Upgraded to **v4.6.1**. Fixed critical permission bug on `config.json` (UID 999) to support non-root Docker containers.
+- **NotebookLM**: Operationalized `notebooklm_keepalive_sync.py` for distributed session state management.
+- **Wiki**: Automated technical change summarization and GitHub push.
+
+## 📅 2026-05-10: 基础设施加固与凭证分发 (Infrastructure Hardening)
+
+### 🤖 ds2api 深度加固
+- **版本升级**: 生产环境 (`129.80.98.80`) 从 v4.4.5 升级至 **v4.6.1**。
+- **权限修正**: 针对新版镜像改用非 root 用户运行的问题，强制执行 `chown 999:999 config.json`。此举解决了因配置文件不可读导致的 401 鉴权失败，确保了多账号配置的稳定加载。
+
+### ⛏️ NotebookLM 凭证分发系统
+- **分布式同步**: 确立了 `notebooklm_keepalive_sync.py` 作为核心凭证中继方案。
+- **双向保活**: 通过 Cron 定时刷新本地 `storage_state.json` 并实时同步至 `hermes-claw` 仓库，实现了“本地生产凭证 -> 云端消费凭证”的无缝闭环。
+- **心跳验证**: 验证了 20 分钟心跳频率在 Google 账号多点登录环境下的高可靠性。
+
+---
+*Status: Infrastructure hardened. Credentials sync operational.*

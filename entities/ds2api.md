@@ -37,7 +37,7 @@
 - **Server IP**: Corrected deployment target to `152.70.68.134`.
 - **Integration Path**: Exploring bridging `openclaw-zero-token` tool-calling logic with `geminiweb2api` to add function calling support.
 
-### [2026-05-08] Version Update & Optimization
-- **Version**: Updated to **v4.4.5**.
-- **ARM64 Support**: Streamlined build process for heterogeneous clusters (OCI ARM + jd184).
-- **Load Balancing**: Enhanced account rotation logic in the bridge layer to prevent rate limiting across multiple Gemini accounts.
+### [2026-05-10] Version 4.6.1 & Permission Lockdown
+- **Version Upgrade**: Updated to **v4.6.1** on server `129.80.98.80`.
+- **Security & Compatibility**: Implemented non-root user compatibility for Docker. Changed `config.json` ownership to `999:999` and permissions to `644` to resolve persistent 401 unauthorized errors in newer image versions.
+- **Deployment**: Switched to `ghcr.io/cjackhwang/ds2api:latest` with automated `docker compose` refresh.
