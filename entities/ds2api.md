@@ -41,3 +41,8 @@
 - **Version Upgrade**: Updated to **v4.6.1** on server `129.80.98.80`.
 - **Security & Compatibility**: Implemented non-root user compatibility for Docker. Changed `config.json` ownership to `999:999` and permissions to `644` to resolve persistent 401 unauthorized errors in newer image versions.
 - **Deployment**: Switched to `ghcr.io/cjackhwang/ds2api:latest` with automated `docker compose` refresh.
+
+### [2026-05-13] Version 4.6.2-beta & Performance Tuning
+- **Version Upgrade**: Updated to **v4.6.2-beta** on remote nodes.
+- **Buffer Optimization**: Enhanced long-context streaming stability by tuning the internal SSE output buffer.
+- **Infrastructure**: Verified the consistency of UID/GID 999 mapping across all worker nodes to prevent hot-reload failures.
