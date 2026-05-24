@@ -1,48 +1,38 @@
-     1|---
-     2|title: ds2api
-     3|created: 2026-04-28
-     4|updated: 2026-05-05
-     5|type: entity
-     6|tags: [middleware, deepseek, api-bridge, deployed, gemini-thinking]
-     7|---
-     8|
-     9|# ds2api
-    10|
-    11|A high-performance middleware that bridges DeepSeek Web capabilities to OpenAI-compatible APIs.
-    12|
-    13|## Key Updates (2026-05-04)
-    14|- **Version Upgrade**: Updated to **v4.4.2**.
-    15|- **Gemini Thinking**: Added support for Gemini reasoning chains (Thinking model).
-    16|- **Streaming Optimization**: Improved SSE stream processing for better stability with downstream orchestrators.
-    17|- **Deployment Architecture**: 
-    18|  - Application Server: `129.154.39.47` (Docker Compose, Port 6011).
-    19|  - Proxy Server: `129.80.98.80` (Nginx).
-    20|- **Configuration**:
-    21|  - Admin Password: `ab87036181`.
-    22|  - Model Aliases: Fixed mappings for `gpt-4o` and `gpt-5.5` to `deepseek-v4-flash`.
-    23|- **Infrastructure**: Includes pure Go implementation of **DeepSeekHashV1 PoW** solver for high-performance session handling.
-    24|- **Proxy Configuration**: Nginx nodes must use `proxy_buffering off;` and `proxy_read_timeout 3600s;` to support stable SSE streaming.
-    25|
-    26|## Integration
-    27|Used as a primary backend for [[hermes-notebooklm-integration]] workflows.
-    28|
-## Maintenance (2026-05-05)
-- **Version Upgrade**: Updated to **v4.4.2** on server `129.80.98.80`.
-- **Cleanup**: Deprecated `compat` key removed from `config.json`.
+# ds2api
 
-### [2026-05-07] Update - geminiweb2api Integration
-- **New Component**: Deployed `geminiweb2api` (reverse-proxy for Gemini Web to OpenAI API).
-- **Architecture Patch**: Modified `Dockerfile` for **ARM64 (aarch64)** compatibility: `RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build`.
-- **Model Access**: Configured complex cookie strings in `config.json` to unlock `gemini-3-pro` and `gemini-3-flash-thinking`.
-- **Server IP**: Corrected deployment target to `152.70.68.134`.
-- **Integration Path**: Exploring bridging `openclaw-zero-token` tool-calling logic with `geminiweb2api` to add function calling support.
+DeepSeek-to-OpenAI API bridge middleware. Implements highly optimized middleware routing, dynamic server-side load balancing, and non-root Docker execution profiles.
+
+---
+
+## 🛠️ Architecture & Core Components
+
+- **Upstream Connection**: Converts DeepSeek API models into standardized OpenAI format structures.
+- **Port Assignment**:
+  - Target server running on Port `6011` (e.g. `ds.994938.xyz`) or deployed across heterogeneous server clusters.
+- **SSE Buffering**: To enable reliable streaming for long-context outputs, Nginx proxy nodes routing `ds2api` traffic must configure:
+  ```nginx
+  proxy_buffering off;
+  proxy_read_timeout 3600s;
+  ```
+
+---
+
+## 📅 Deployment & Update History
+
+### [2026-05-13] Version 4.6.2-beta Upgrade & SSE Buffer Tuning
+- **Version**: Upgraded to **v4.6.2-beta** on remote OCI nodes (`129.80.98.80`).
+- **SSE Buffer Optimization**: Optimized the internal Server-Sent Events (SSE) output buffer to prevent connection drops during massive context windows.
+- **UID/GID Consistency**: Verified that the user mapping consistency of UID/GID `999:999` is preserved across all worker nodes to prevent permissions conflicts when the image mounts local configuration directories.
 
 ### [2026-05-10] Version 4.6.1 & Permission Lockdown
 - **Version Upgrade**: Updated to **v4.6.1** on server `129.80.98.80`.
 - **Security & Compatibility**: Implemented non-root user compatibility for Docker. Changed `config.json` ownership to `999:999` and permissions to `644` to resolve persistent 401 unauthorized errors in newer image versions.
 - **Deployment**: Switched to `ghcr.io/cjackhwang/ds2api:latest` with automated `docker compose` refresh.
 
-### [2026-05-13] Version 4.6.2-beta & Performance Tuning
-- **Version Upgrade**: Updated to **v4.6.2-beta** on remote nodes.
-- **Buffer Optimization**: Enhanced long-context streaming stability by tuning the internal SSE output buffer.
-- **Infrastructure**: Verified the consistency of UID/GID 999 mapping across all worker nodes to prevent hot-reload failures.
+### [2026-05-08] Version 4.4.5 & ARM64 Support
+- **Version**: Updated to **v4.4.5**.
+- **ARM64 Support**: Streamlined build process for heterogeneous clusters (OCI ARM + jd184).
+- **Load Balancing**: Enhanced account rotation logic in the bridge layer to prevent rate limiting across multiple Gemini accounts.
+
+---
+*Back to [Index](../index.md) or [Main README](../README.md).*

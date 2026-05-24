@@ -1,37 +1,34 @@
-     1|---
-     2|title: YouTube Download Tricks
-     3|created: 2026-04-29
-     4|updated: 2026-05-05
-     5|type: concept
-     6|tags: [yt-dlp, github-actions, bypass, automation]
-     7|---
-     8|
-     9|# YouTube Download Tricks
-    10|
-    11|Techniques for bypassing bot detection (n-challenge, IP reputation) when downloading YouTube content to restricted server environments.
-    12|
-    13|## 1. GitHub Actions Bypassing
-    14|When data center IPs (OCI, AWS) are blocked, use GitHub's infrastructure:
-    15|- **Repo**: `joe12803/baidu-downloader`
-    16|- **Workflow**: `baidu_transfer.yml`
-    17|- **Mechanism**: Trigger via `gh workflow run` to download to GH runners and upload directly to Baidu Netdisk.
-    18|
-    19|## 2. Cookie Management
-    20|- **Format Conversion**: Automated Python script converts Playwright `storage_state.json` (used by [[hermes-notebooklm-integration]]) to Netscape format required by `yt-dlp`.
-    21|- **Account Rotation**: Data centers often trigger bans; maintain fresh session cookies from a residential-IP authenticated browser.
-    22|
-    23|## 3. Toolchain Requirements
-    24|- **JS Runtime**: `yt-dlp` requires Deno or Node.js to solve the `n-token` challenge locally.
-    25|- **BaiduPCS-Go**: Used for final asset management on the target server.
-    26|
-## 4. The "NotebookLM" Bypass
-If only text/summary is needed, add the URL directly to [[hermes-notebooklm-integration]]. Google's scrapers are rarely blocked and provide full transcripts instantly.
+# YouTube Download Tricks & Bypass Strategies
 
-## 5. GitHub Actions IP Fencing & Bypass (2026-05-07)
-- **Status**: YouTube has tightened blocks on Data Center IPs (OCI, GitHub Runners). Even with valid cookies, `n-challenge` often fails or triggers bot verification.
-- **Solution**: Use the `joe12803/baidu-downloader` repo. Trigger `baidu_transfer.yml` via `gh workflow run`. This leverages GitHub's higher-reputation IPs to fetch and transfer to Baidu Netdisk.
-- **Cookie Conversion**: Refined Python script to extract from `storage_state.json` (Playwright) to Netscape format for `yt-dlp` local attempts, though local IP reputation remains the primary bottleneck.
+This concept maps our strategies for bypassing YouTube's strict bot detection and IP bans affecting data center and cloud IP ranges.
 
-## 6. Resource Alternatives (2026-05-08)
-- **Zeabur**: Identified as a viable Docker hosting alternative ($5 free credit) when HF/Action IPs are blocked.
-- **HF Keep-Alive**: Confirmed that `curl` triggers via external cron services (UptimeRobot) are essential for maintaining download services on "Sleep-prone" free tiers.
+---
+
+## 🛠️ Key Techniques & Workarounds
+
+### 1. The NotebookLM Proxy
+When cloud IPs (OCI, AWS, etc.) are blocked and standard `yt-dlp` calls return `Sign in to confirm you’re not a bot`, the absolute best workaround is the **NotebookLM Proxy**:
+1. Create a temporary notebook via `notebooklm create`.
+2. Add the target YouTube video URL as a source via `notebooklm source add --type youtube`.
+3. Query the video contents via `notebooklm ask`.
+4. Output the extracted transcript and structured summaries directly into the local wiki.
+
+### 2. GitHub Actions Offline Downloader
+Since GitHub Actions runners have higher reputation IP addresses, we route heavy downloads through a dedicated repository (`joe12803/baidu-downloader`):
+- **Spoofing User-Agent**: Configures `BaiduPCS-Go` to use an Android mobile User-Agent (`netdisk;11.12.3;android-android;11`) and AppID `266719` to bypass Baidu's strict upload/download block parameters (avoiding Code 31023).
+- **Playwright Cookie Conversions**: Run custom Playwright routines to load an active authenticated session (`storage_state.json`), capture stream resources, or dump fresh Google cookies into the Netscape format expected by `yt-dlp`.
+
+---
+
+## 📅 Chronological Updates
+
+### [2026-05-24] Heartbeat & Download Steady-State
+- **Steady-State Operations**: Verified that both the OCI nodes (`129.80.98.80`) and the GitHub Actions offline downloader remain stable.
+- **Baidu Netdisk Verification**: Handled periodic session refreshes for `BaiduPCS-Go` to prevent login expirations (Code 31045) during large file transfers.
+
+### [2026-05-09] Cookie Conversion Refinements
+- **Netscape Formatting**: Refined the Playwright-to-Netscape cookie converter Python script to ensure that the second column (domain matching flag) is formatted correctly, resolving `AssertionError` crashes during local `yt-dlp` calls.
+- **Credential Rotation**: Configured automatic secret syncing to ensure that fresh browser cookies are distributed to remote download runners without requiring manual workflow edits.
+
+---
+*Back to [Index](../index.md) or [Main README](../README.md).*
