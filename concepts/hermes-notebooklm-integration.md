@@ -13,6 +13,11 @@ This concept describes the workflow for augmenting AI agents (like Hermes) with 
 
 ## 📅 Chronological Milestones
 
+### [2026-07-01] Session Expiration & Chromium Multi-Profile Conflict
+- **Google Session Expiration**: The Google session for NotebookLM expired around late June 2026. Keepalive checks using `sudo -u joe1280 notebooklm list` now fail with `Authentication expired or invalid. Run 'notebooklm login' to re-authenticate.`
+- **Chromium Multi-Profile Discrepancy**: Identified a discrepancy in the user data directories: OpenClaw uses `/home/joe1280/.config/chrome-openclaw-debug` (listening on remote debugging port 9222), while `google_browser_sync_pro.py` accesses `/home/joe1280/.config/chromium`. When Google authentication expires, cookie extraction from the chromium profile fails because it is redirected to the sign-in page, requiring manual re-authentication via `notebooklm login`.
+- **Sudoers Restriction Warning**: Running `/root/google_browser_sync_pro.py` directly under `joe1280` throws `joe1280 is not in the sudoers file` when trying to call `sudo -u joe1280 notebooklm login --browser-cookies chromium`.
+
 ### [2026-05-15] Keepalive Stability & Multi-Day Longevity
 - **Session Health**: Verified that the Playwright session state remains fully active and healthy under the 20-minute heartbeat mechanism, lasting over a week without needing a manual re-login.
 - **Silent Maintenance**: Confirmed that the `notebooklm_keepalive_sync.py` script exits silently when no credentials changes are detected, avoiding cron job notification spam.
