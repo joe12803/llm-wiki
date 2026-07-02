@@ -525,5 +525,7 @@
 - **Chrome/Chromium Data Directory Discrepancy**: Documented differences between `/home/joe1280/.config/chrome-openclaw-debug` (OpenClaw) and `/home/joe1280/.config/chromium` (google_browser_sync_pro.py).
 - **Sudoers Permission Configuration**: Resolved system permission concerns when executing sync tasks under different system profiles.
 
-## [2026-07-02] auto | Daily synchronization triggered
-- Automated review of the day's technical milestones.
+## [2026-07-02] auto | Daily synchronization & NotebookLM Storage State Recovery
+- **Storage State Recovery Attempt**: Tried copying the active `storage_state.json` from the bot's current profile directory to `/home/joe1280/.notebooklm/profiles/default/storage_state.json` to bypass Google session expiration.
+- **Credentials Expiration Confirmed**: Verified that the session tokens have fully expired on Google's servers, causing all local cookie backups (including those from June 24, 2026) to fail validation.
+- **Required Resolution**: Manual interactive sign-in (`notebooklm login` as user `joe1280`) is required to generate new valid browser session cookies before the automated keepalive cron job can resume.

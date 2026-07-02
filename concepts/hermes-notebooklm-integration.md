@@ -13,6 +13,11 @@ This concept describes the workflow for augmenting AI agents (like Hermes) with 
 
 ## 📅 Chronological Milestones
 
+### [2026-07-02] Storage State Restoration Attempt & Continued Expiration
+- **Storage State Copying**: Attempted to restore the NotebookLM session by copying the storage state (`storage_state.json`) from the bot's current active profile `/root/.hermes/profiles/bot_seventh/home/.notebooklm/profiles/default/storage_state.json` to the target `joe1280` user's directory `/home/joe1280/.notebooklm/profiles/default/storage_state.json` and updating its ownership.
+- **Expiration Verified**: Even with the restored profile, `notebooklm list` and `notebooklm auth check --test` continued to fail. This confirmed that the credentials (SIDCC/OSID/etc.) have fully expired on Google's servers, rendering all backup cookies invalid.
+- **Manual Login Required**: Headless automatic cookie renewal cannot bypass Google's redirect to the sign-in page. A manual interactive login (`notebooklm login`) under user `joe1280` is needed to re-establish a valid session.
+
 ### [2026-07-01] Session Expiration & Chromium Multi-Profile Conflict
 - **Google Session Expiration**: The Google session for NotebookLM expired around late June 2026. Keepalive checks using `sudo -u joe1280 notebooklm list` now fail with `Authentication expired or invalid. Run 'notebooklm login' to re-authenticate.`
 - **Chromium Multi-Profile Discrepancy**: Identified a discrepancy in the user data directories: OpenClaw uses `/home/joe1280/.config/chrome-openclaw-debug` (listening on remote debugging port 9222), while `google_browser_sync_pro.py` accesses `/home/joe1280/.config/chromium`. When Google authentication expires, cookie extraction from the chromium profile fails because it is redirected to the sign-in page, requiring manual re-authentication via `notebooklm login`.
