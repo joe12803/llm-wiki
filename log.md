@@ -529,3 +529,8 @@
 - **Storage State Recovery Attempt**: Tried copying the active `storage_state.json` from the bot's current profile directory to `/home/joe1280/.notebooklm/profiles/default/storage_state.json` to bypass Google session expiration.
 - **Credentials Expiration Confirmed**: Verified that the session tokens have fully expired on Google's servers, causing all local cookie backups (including those from June 24, 2026) to fail validation.
 - **Required Resolution**: Manual interactive sign-in (`notebooklm login` as user `joe1280`) is required to generate new valid browser session cookies before the automated keepalive cron job can resume.
+
+## [2026-07-08] auto | Daily synchronization & Environment Constraint Diagnosis
+- **NotebookLM Keepalive Failure**: The automated keepalive checks (`notebooklm_keepalive_sync.py` and `keep_alive_notebooklm.sh`) in both `bot_seventh` and `bot_sixth` profiles continue to report Google session expiration (`Error: Authentication expired or invalid`). Interactive re-authentication is required on the host.
+- **Obsidian Sync Sandbox Failures**: The `obsidian-vault-sync` cron job in `bot_sixth` encountered intermittent errors: `/bin/sh: 1: sudo: not found`. This highlights that running system operations under `sudo` inside restricted agent containers fails if the sandbox restricts privilege escalation or system binaries.
+- **Git Repository Maintained**: Wiki sync script was run successfully to update and push current logs and documentation back to the `joe12803/llm-wiki` repository.

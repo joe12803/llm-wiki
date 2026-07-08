@@ -13,6 +13,10 @@ This concept describes the workflow for augmenting AI agents (like Hermes) with 
 
 ## 📅 Chronological Milestones
 
+### [2026-07-08] Continued Session Expiration & System Constraints
+- **Google Authentication Lockout**: The NotebookLM session remains expired. The automated heartbeat cron jobs continue to log: `Error: Authentication expired or invalid. Run 'notebooklm login' to re-authenticate.`
+- **Manual Intervention Required**: Automated state recovery is unable to bypass Google's login redirects. New browser cookies must be generated manually on the host using `sudo -u joe1280 notebooklm login` to re-establish the Playwright storage state.
+
 ### [2026-07-02] Storage State Restoration Attempt & Continued Expiration
 - **Storage State Copying**: Attempted to restore the NotebookLM session by copying the storage state (`storage_state.json`) from the bot's current active profile `/root/.hermes/profiles/bot_seventh/home/.notebooklm/profiles/default/storage_state.json` to the target `joe1280` user's directory `/home/joe1280/.notebooklm/profiles/default/storage_state.json` and updating its ownership.
 - **Expiration Verified**: Even with the restored profile, `notebooklm list` and `notebooklm auth check --test` continued to fail. This confirmed that the credentials (SIDCC/OSID/etc.) have fully expired on Google's servers, rendering all backup cookies invalid.
