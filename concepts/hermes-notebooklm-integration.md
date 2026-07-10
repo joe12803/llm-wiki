@@ -13,6 +13,12 @@ This concept describes the workflow for augmenting AI agents (like Hermes) with 
 
 ## 📅 Chronological Milestones
 
+### [2026-07-10] CLI Code Inspection & Authentication Lockout Diagnosis
+- **CLI Code Inspection**: Checked the internal session module (`notebooklm/cli/session.py`) and confirmed that the CLI's `login` command initiates Playwright with `"headless": False`. This prevents automatic re-authentication in headless server environments or automated cron runner environments.
+- **Doctor False Positive**: Documented that the `notebooklm doctor` command reports successful authentication (`✓ pass`) based solely on the structural existence of the `SID` cookie and configuration properties in `storage_state.json`, without verifying whether the session tokens are rejected as expired by Google's authentication backend.
+- **Remediation**: Confirmed that automated keepalive scripts (`notebooklm_keepalive_sync.py`) are unable to self-heal. Manual re-authentication via `sudo -u joe1280 notebooklm login` remains a hard requirement on the host machine to re-generate valid cookies.
+
+
 ### [2026-07-08] Continued Session Expiration & System Constraints
 - **Google Authentication Lockout**: The NotebookLM session remains expired. The automated heartbeat cron jobs continue to log: `Error: Authentication expired or invalid. Run 'notebooklm login' to re-authenticate.`
 - **Manual Intervention Required**: Automated state recovery is unable to bypass Google's login redirects. New browser cookies must be generated manually on the host using `sudo -u joe1280 notebooklm login` to re-establish the Playwright storage state.
