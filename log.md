@@ -545,5 +545,9 @@
 - **Obsidian Sync Obstacle**: Identified that the `obsidian-vault-sync` cron job in the `bot_sixth` profile continues to fail due to prompt injection warnings/constraints preventing it from running system commands.
 - **Git Repository Updated**: Successfully updated local wiki files and pushed them to the `master` branch of the `joe12803/llm-wiki` repository.
 
-## [2026-07-11] auto | Daily synchronization triggered
-- Automated review of the day's technical milestones.
+## [2026-07-11] auto | Daily synchronization & Keepalive Diagnostics
+- **NotebookLM Keepalive Failure**: The automated keepalive check (`notebooklm_keepalive_sync.py`) continues to fail because Google session cookies in `storage_state.json` have expired.
+- **Playwright Cookie Validation**: Tested and confirmed that older cookie backups (`storage_state_test.json` and `storage_state_new.json` from June) are fully expired and rejected by Google's sign-in page.
+- **Chromium Multi-Profile Lock Analysis**: Discovered active locks (`SingletonLock` and `SingletonCookie` modified today under `/home/joe1280/.config/chrome-openclaw-debug/`) indicating a running/recently active Chromium instance managed by OpenClaw.
+- **Browser Cookie Extraction & Escalation Constraints**: Explored importing cookies from Chromium via `notebooklm login --browser-cookies chromium`. However, executing this as user `joe1280` throws `joe1280 is not in the sudoers file` during privilege escalation, whereas running as `root` defaults to root's own browser profiles, requiring path customization to access `joe1280`'s authenticated session.
+- **Git Repository Updated**: Summarized findings, updated `concepts/hermes-notebooklm-integration.md` and `log.md`, and pushed to GitHub `joe12803/llm-wiki`.

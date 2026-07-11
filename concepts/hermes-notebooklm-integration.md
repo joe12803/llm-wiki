@@ -13,6 +13,13 @@ This concept describes the workflow for augmenting AI agents (like Hermes) with 
 
 ## 📅 Chronological Milestones
 
+### [2026-07-11] Google Session Diagnostics & Sudoers Permission Constraints
+- **Playwright Cookie Check & Expiry**: Tested and verified multiple cookie backups (including `storage_state_test.json` and `storage_state_new.json` from June) under `/home/joe1280/.notebooklm/profiles/default/`. All backups failed with Google authentication expiry, reinforcing the need for fresh cookie generation.
+- **Chromium Multi-Profile Lock Analysis**: Detected active Chromium user profile locks (`SingletonLock` and `SingletonCookie` modified today under `/home/joe1280/.config/chrome-openclaw-debug/`) which indicates a running or recently crashed Chromium instance managed by OpenClaw.
+- **Browser Cookie Extraction Feasibility**: Explored using `notebooklm login --browser-cookies chromium` to extract cookies from the system's active Chromium browser profile (where Google might still be authenticated).
+- **Privilege Escalation Constraints**: Identified that executing `notebooklm login --browser-cookies chromium` under the user `joe1280` in automated scripts throws `joe1280 is not in the sudoers file` when attempting privilege escalation. Running it under `root` defaults to root's own Chromium profile folder, failing to pick up `joe1280`'s browser cookies unless path variables are customized.
+
+
 ### [2026-07-10] CLI Code Inspection & Authentication Lockout Diagnosis
 - **CLI Code Inspection**: Checked the internal session module (`notebooklm/cli/session.py`) and confirmed that the CLI's `login` command initiates Playwright with `"headless": False`. This prevents automatic re-authentication in headless server environments or automated cron runner environments.
 - **Doctor False Positive**: Documented that the `notebooklm doctor` command reports successful authentication (`✓ pass`) based solely on the structural existence of the `SID` cookie and configuration properties in `storage_state.json`, without verifying whether the session tokens are rejected as expired by Google's authentication backend.
